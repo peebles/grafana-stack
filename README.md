@@ -1,3 +1,7 @@
+## Beginners
+
+    http://docs.grafana.org/tutorials/screencasts/
+
 ## Docker images used
 
     graphite + statsd
@@ -32,4 +36,8 @@ docker-compose restart grafana
 
 ## Import Dashboard
 
-Edit collectd-dashboard.json, change "local" to the name of your host, and import this dashboard file.
+Edit collectd-dashboard.json, change "metrics" to the name of your host, and import this dashboard file.
+
+## Grafana Authentication
+
+If you change docker-compose with a different password, then you must change `run-grafana.sh` to match.

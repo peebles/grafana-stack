@@ -106,7 +106,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "collectd.local.load.load.midterm"
+              "target": "collectd.metrics.load.load.midterm"
             },
             {
               "refId": "B",
@@ -170,7 +170,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(collectd.local.df.root.percent_bytes.used, 'Disk %used')"
+              "target": "alias(collectd.metrics.df.root.percent_bytes.used, 'Disk %used')"
             }
           ],
           "thresholds": [],
@@ -238,7 +238,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(collectd.local.load.load.*)"
+              "target": "aliasByMetric(collectd.metrics.load.load.*)"
             }
           ],
           "thresholds": [],
@@ -318,7 +318,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(collectd.local.memory.memory.free, 'free')"
+              "target": "alias(collectd.metrics.memory.memory.free, 'free')"
             }
           ],
           "thresholds": [],
@@ -386,7 +386,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(collectd.local.interface.eth0.if_packets.*)"
+              "target": "aliasByMetric(collectd.metrics.interface.eth0.if_packets.*)"
             }
           ],
           "thresholds": [],
@@ -469,6 +469,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "HOST: Local",
+  "title": "HOST: Metrics",
   "version": 1
 }

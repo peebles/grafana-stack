@@ -35,6 +35,8 @@ grafana:
   build: .
   dockerfile: Dockerfile.grafana
   restart: always
+  environment:
+    GF_SECURITY_ADMIN_PASSWORD: secret
   volumes_from:
     - grafana-data
   ports:
@@ -48,12 +50,13 @@ grafana:
 
 ## You can build this and deploy it like
 ##
+## edit Dockerfile.collectd and change GRAPHITE_HOST appropriately
 ## docker build -t mymetrics -f Dockerfile.collectd .
-## docker run -d --name collectd --privileged --hostname local --link graphite mymetrics
-
+## docker run -d --name collectd --privileged --hostname local mymetrics
+##
 metrics:
   container_name: metrics
-  hostname: local
+  hostname: metrics
   privileged: true
   build: .
   dockerfile: Dockerfile.collectd

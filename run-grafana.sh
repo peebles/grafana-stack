@@ -2,7 +2,7 @@
 echo 'Starting Grafana...'
 /run.sh "$@" &
 AddDataSource() {
-  curl 'http://admin:admin@localhost:3000/api/datasources' \
+  curl 'http://admin:secret@localhost:3000/api/datasources' \
     -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     --data-binary \
