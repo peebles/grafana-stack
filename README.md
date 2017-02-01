@@ -104,3 +104,5 @@ Containers used:
 A docker container that monitors other docker containers using collectd might be useful.
 See [this](https://github.com/bobrik/collectd-docker).
 
+Can't find your stats in Grafana?  Read [this](http://statsd.readthedocs.io/en/latest/types.html).  Counters
+are stored under "stats.", timers under "stats.timers.", gauges under "stats.gauges.", etc.
