@@ -1,0 +1,61 @@
+graphite-data:
+  image: busybox
+  container_name: graphite-data
+  volumes:
+    - /opt/graphite/storage
+
+## Graphite Ports
+## 2003 carbon receiver - plaintext
+## 2004 carbon receiver - pickle
+## 2023 carbon aggregator - plaintext
+## 2024 carbon aggregator - pickle
+## 8125 statsd
+## 8126 statsd admin
+
+graphite:
+  container_name: graphite
+  image: hopsoft/graphite-statsd
+  restart: always
+  volumes_from:
+    - graphite-data
+  ports:
+    - "2003-2004:2003-2004"
+    - "2023-2024:2023-2024"
+    - "8125:8125/udp"
+    - "8126:8126"
+
+grafana-data:
+  image: busybox
+  container_name: grafana-data
+  volumes:
+    - /var/lib/grafana
+
+grafana:
+  container_name: grafana
+  build: .
+  dockerfile: Dockerfile.grafana
+  restart: always
+  volumes_from:
+    - grafana-data
+  ports:
+    - "80:3000"
+  links:
+    - graphite
+
+## Example Host Metrics Gatherer
+## Would run one of these per physical machine in a stack
+## Monitors: load, disk, memory and network.
+
+## You can build this and deploy it like
+##
+## docker build -t mymetrics -f Dockerfile.collectd .
+## docker run -d --name collectd --privileged --hostname local --link graphite mymetrics
+
+metrics:
+  container_name: metrics
+  hostname: local
+  privileged: true
+  build: .
+  dockerfile: Dockerfile.collectd
+  links:
+    - graphite

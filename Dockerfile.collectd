@@ -1,0 +1,20 @@
+FROM pataquets/collectd
+
+# Build our custom collectd.conf file:
+# Disable FQDN lookup to avoid collectd complaining.
+
+ADD write-graphite.conf /etc/collectd/conf-available/write-graphite.conf
+ADD read-interface.conf /etc/collectd/conf-available/read-interface.conf
+RUN \
+  cat \
+    /etc/collectd/conf-available/global-FQDNLookup-disable.conf \
+    /etc/collectd/conf-available/read-load.conf \
+    /etc/collectd/conf-available/read-df-all.conf \
+    /etc/collectd/conf-available/read-interface.conf \
+    /etc/collectd/conf-available/read-memory.conf \
+    /etc/collectd/conf-available/write-graphite.conf \
+    | tee -a /etc/collectd/collectd.conf
+
+# Print resulting collectd.conf file, just to be sure.
+RUN \
+  nl /etc/collectd/collectd.conf
