@@ -9,9 +9,9 @@ FROM pataquets/collectd
 #
 ENV GRAPHITE_HOST graphite
 
-ADD write-graphite.conf /etc/collectd/conf-available/write-graphite.conf
+ADD collectd/write-graphite.conf /etc/collectd/conf-available/write-graphite.conf
 RUN sed -i "s/__graphite__/$GRAPHITE_HOST/g" /etc/collectd/conf-available/write-graphite.conf
-ADD read-interface.conf /etc/collectd/conf-available/read-interface.conf
+ADD collectd/read-interface.conf /etc/collectd/conf-available/read-interface.conf
 RUN \
   cat \
     /etc/collectd/conf-available/global-FQDNLookup-disable.conf \

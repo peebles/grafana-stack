@@ -14,7 +14,8 @@ graphite-data:
 
 graphite:
   container_name: graphite
-  image: hopsoft/graphite-statsd
+  build: .
+  dockerfile: graphite/Dockerfile
   restart: always
   volumes_from:
     - graphite-data
@@ -33,7 +34,7 @@ grafana-data:
 grafana:
   container_name: grafana
   build: .
-  dockerfile: Dockerfile.grafana
+  dockerfile: grafana/Dockerfile
   restart: always
   environment:
     GF_SECURITY_ADMIN_PASSWORD: secret
@@ -59,6 +60,6 @@ metrics:
   hostname: metrics
   privileged: true
   build: .
-  dockerfile: Dockerfile.collectd
+  dockerfile: collectd/Dockerfile
   links:
     - graphite
