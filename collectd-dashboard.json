@@ -106,7 +106,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "collectd.metrics.load.load.midterm"
+              "target": "scale(collectd.metrics.load.load.midterm, 100)"
             },
             {
               "refId": "B",
@@ -440,8 +440,8 @@
     "list": []
   },
   "time": {
-    "from": "now/d",
-    "to": "now/d"
+    "from": "now-2d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -470,5 +470,5 @@
   },
   "timezone": "browser",
   "title": "HOST: Metrics",
-  "version": 1
+  "version": 2
 }

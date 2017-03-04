@@ -7,21 +7,10 @@ FROM pataquets/collectd
 # "graphite" only works if you are linking to the graphite
 # container, which you probably can't do...
 #
-ENV GRAPHITE_HOST graphite
+# ENV GRAPHITE_HOST ec2-52-10-118-52.us-west-2.compute.amazonaws.com
 
 ADD collectd/write-graphite.conf /etc/collectd/conf-available/write-graphite.conf
-RUN sed -i "s/__graphite__/$GRAPHITE_HOST/g" /etc/collectd/conf-available/write-graphite.conf
+# RUN sed -i "s/__graphite__/$GRAPHITE_HOST/g" /etc/collectd/conf-available/write-graphite.conf
 ADD collectd/read-interface.conf /etc/collectd/conf-available/read-interface.conf
-RUN \
-  cat \
-    /etc/collectd/conf-available/global-FQDNLookup-disable.conf \
-    /etc/collectd/conf-available/read-load.conf \
-    /etc/collectd/conf-available/read-df-all.conf \
-    /etc/collectd/conf-available/read-interface.conf \
-    /etc/collectd/conf-available/read-memory.conf \
-    /etc/collectd/conf-available/write-graphite.conf \
-    | tee -a /etc/collectd/collectd.conf
-
-# Print resulting collectd.conf file, just to be sure.
-RUN \
-  nl /etc/collectd/collectd.conf
+COPY collectd/run.sh /run.sh
+ENTRYPOINT [ "/run.sh" ]

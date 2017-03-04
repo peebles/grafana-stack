@@ -79,14 +79,15 @@ you can see them in grafana.  In fact, included in this stack is a container tha
 There are some support files here to get you started if you want to run more collectd services.  You would
 want only one of these per physical machine in your environment.
 
-Basically, use the files under "./collectd".  Edit the Dockerfile and change **GRAPHITE_HOST** to point to
-the host name or IP or container name (if you are using linking) of the "graphite" server (the one hosting port 2003).
+Basically, use the files under "./collectd".  The "run.sh" depended on a $GRAPHITE_HOST which should be
+set to the accessible graphite host name.  In AWS this probably needs to be the public DNS name of
+the machine running graphite.
 
 Then:
 
 ```bash
 docker build -t my-collectd -f collectd/Dockerfile .
-docker run -d --name my-collectd --hostname my-hostname --privileged my-collectd
+docker run -d --name my-collectd --hostname my-hostname -e GRAPHITE_HOST=your-graphite-host --privileged my-collectd
 ```
 
 Or look at the "metrics" section of docker-compose.yml.
@@ -104,5 +105,3 @@ Containers used:
 A docker container that monitors other docker containers using collectd might be useful.
 See [this](https://github.com/bobrik/collectd-docker).
 
-Can't find your stats in Grafana?  Read [this](http://statsd.readthedocs.io/en/latest/types.html).  Counters
-are stored under "stats.", timers under "stats.timers.", gauges under "stats.gauges.", etc.
