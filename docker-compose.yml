@@ -37,6 +37,7 @@ grafana:
   dockerfile: grafana/Dockerfile
   restart: always
   environment:
+    GF_INSTALL_PLUGINS: "grafana-piechart-panel"
     GF_SECURITY_ADMIN_PASSWORD: secret
   volumes_from:
     - grafana-data
